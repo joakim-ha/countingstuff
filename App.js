@@ -30,7 +30,17 @@ export default function App() {
     }
   }, [countables, isLoaded]);
 
-  const changeCount = (amount, index) => {
+  // https://javascript.info/currying-partials
+  function curry(f) {
+    // curry(f) does the currying transform
+    return function (a) {
+      return function (b) {
+        return f(a, b);
+      };
+    };
+  }
+
+  const changeCount = (index, amount) => {
     const newState = [...countables];
     newState[index].count += amount;
     setCountables(newState);
@@ -57,8 +67,7 @@ export default function App() {
               <CountableRow
                 countable={countable}
                 key={countable.name}
-                changeCount={changeCount}
-                index={index}
+                changeCount={curry(changeCount)(index)}
               />
             ))}
             <View style={{ flex: 1 }} />
