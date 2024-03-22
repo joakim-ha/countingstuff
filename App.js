@@ -10,6 +10,7 @@ import {
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import { AddRow } from "./components/AddRow";
+import { CountableButton } from "./components/CountableButton";
 import { CountableRow } from "./components/CountableRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
@@ -43,6 +44,15 @@ export default function App() {
     saveCountables(newState);
   };
 
+  const createButton = (label, amount, index) => (
+    <CountableButton
+      label={label}
+      submit={() => {
+        changeCount(amount, index);
+      }}
+    />
+  );
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -57,8 +67,8 @@ export default function App() {
               <CountableRow
                 countable={countable}
                 key={countable.name}
-                changeCount={changeCount}
-                index={index}
+                addButton={createButton("+", 1, index)}
+                subtractButton={createButton("+", 1, index)}
               />
             ))}
             <View style={{ flex: 1 }} />
