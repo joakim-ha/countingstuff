@@ -64,12 +64,10 @@ export default function App() {
         <SafeAreaView style={styles.container}>
           <ScrollView>
             {countables.map((countable, index) => (
-              <CountableRow
-                countable={countable}
-                key={countable.name}
-                addButton={createButton("+", 1, index)}
-                subtractButton={createButton("+", 1, index)}
-              />
+              <CountableRow countable={countable} key={countable.name}>
+                {createButton("+", 1, index)}
+                {createButton("-", -1, index)}
+              </CountableRow>
             ))}
             <View style={{ flex: 1 }} />
           </ScrollView>

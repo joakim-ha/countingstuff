@@ -1,17 +1,15 @@
 import { Text, View, StyleSheet } from "react-native";
 
+import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, addButton, subtractButton }) => (
+export const CountableRow = ({ countable, children }) => (
   <View style={CommonStyles.row}>
     <View style={styles.nameColumn}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
       <Text style={CommonStyles.textItem}>{countable.count}</Text>
     </View>
-    <View style={styles.buttonColumn}>
-      {addButton}
-      {subtractButton}
-    </View>
+    <View style={styles.buttonColumn}>{children}</View>
   </View>
 );
 
