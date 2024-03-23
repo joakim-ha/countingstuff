@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { View, TextInput } from "react-native";
 
 import { CountableButton } from "./CountableButton";
+import { CountableContext } from "../providers/CountableProvider";
 import { CommonStyles } from "../styles/CommonStyles";
 
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
+  const countableContext = useContext(CountableContext);
 
   return (
     <View style={CommonStyles.row}>
@@ -13,7 +15,7 @@ export const AddRow = ({ addNewCountable }) => {
       <CountableButton
         label="Add"
         submit={() => {
-          addNewCountable(name);
+          countableContext.addNewCountable(name);
         }}
       />
     </View>

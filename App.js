@@ -11,6 +11,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
+import { CountableContext } from "./providers/CountableProvider";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
 export default function App() {
@@ -52,18 +53,19 @@ export default function App() {
     >
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
-          <ScrollView>
-            {countables.map((countable, index) => (
-              <CountableRow
-                countable={countable}
-                key={countable.name}
-                changeCount={changeCount}
-                index={index}
-              />
-            ))}
-            <View style={{ flex: 1 }} />
-          </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
+          <CountableContext.Provider value={{ changeCount, addNewCountable }}>
+            <ScrollView>
+              {countables.map((countable, index) => (
+                <CountableRow
+                  countable={countable}
+                  key={countable.name}
+                  index={index}
+                />
+              ))}
+              <View style={{ flex: 1 }} />
+            </ScrollView>
+            <AddRow />
+          </CountableContext.Provider>
           <StatusBar style="auto" />
         </SafeAreaView>
       </SafeAreaProvider>
