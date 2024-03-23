@@ -5,7 +5,7 @@ import { CountableButton } from "./CountableButton";
 import { CountableContext } from "../providers/CountableProvider";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, changeCount, index }) => {
+export const CountableRow = ({ countable, index }) => {
   const countableContext = useContext(CountableContext);
   return (
     <View style={CommonStyles.row}>

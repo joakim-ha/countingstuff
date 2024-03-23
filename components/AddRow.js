@@ -5,7 +5,7 @@ import { CountableButton } from "./CountableButton";
 import { CountableContext } from "../providers/CountableProvider";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const AddRow = ({ addNewCountable }) => {
+export const AddRow = () => {
   const [name, setName] = useState("");
   const countableContext = useContext(CountableContext);
 
