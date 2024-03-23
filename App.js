@@ -1,16 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  View,
-  Platform,
-} from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
-import { AddRow } from "./components/AddRow";
-import { CountableRow } from "./components/CountableRow";
+import { CountablesView } from "./components/CountablesView";
 import { CountableContext } from "./providers/CountableProvider";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
@@ -47,29 +40,16 @@ export default function App() {
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
-    >
-      <SafeAreaProvider>
-        <SafeAreaView style={styles.container}>
-          <CountableContext.Provider value={{ changeCount, addNewCountable }}>
-            <ScrollView>
-              {countables.map((countable, index) => (
-                <CountableRow
-                  countable={countable}
-                  key={countable.name}
-                  index={index}
-                />
-              ))}
-              <View style={{ flex: 1 }} />
-            </ScrollView>
-            <AddRow />
-          </CountableContext.Provider>
-          <StatusBar style="auto" />
-        </SafeAreaView>
-      </SafeAreaProvider>
-    </KeyboardAvoidingView>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <CountableContext.Provider
+          value={{ countables, changeCount, addNewCountable }}
+        >
+          <CountablesView />
+        </CountableContext.Provider>
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
