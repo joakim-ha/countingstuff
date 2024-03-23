@@ -35,13 +35,11 @@ export default function App() {
     const newState = [...countables];
     newState[index].count += amount;
     setCountables(newState);
-    saveCountables(newState);
   };
 
   const addNewCountable = (name) => {
     const newState = [...countables, { name, count: 0 }];
     setCountables(newState);
-    saveCountables(newState);
   };
 
   const createButton = (label, amount, index) => (
