@@ -2,8 +2,8 @@ import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableButton = ({ label, submit }) => (
-  <TouchableOpacity style={styles.button} onPress={submit}>
+export const CountableButton = ({ label, submit, disable }) => (
+  <TouchableOpacity style={styles.button} onPress={submit} disabled={disable}>
     <Text style={CommonStyles.textItem}>{label}</Text>
   </TouchableOpacity>
 );
