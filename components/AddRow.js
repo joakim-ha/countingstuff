@@ -9,7 +9,7 @@ export const AddRow = ({ addNewCountable }) => {
 
   const handleSubmit = () => {
     addNewCountable(name);
-    setName(""); // Clear the input field
+    setName("");
   };
 
   return (
