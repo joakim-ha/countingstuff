@@ -7,15 +7,15 @@ import { CommonStyles } from "../styles/CommonStyles";
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
 
+  const handleSubmit = () => {
+    addNewCountable(name);
+    setName(""); // Clear the input field
+  };
+
   return (
     <View style={CommonStyles.row}>
-      <TextInput placeholder="Enter name" onChangeText={setName} />
-      <CountableButton
-        label="Add"
-        submit={() => {
-          addNewCountable(name);
-        }}
-      />
+      <TextInput placeholder="Enter name" onChangeText={setName} value={name}/>
+      <CountableButton label="Add" submit={handleSubmit} />
     </View>
   );
 };
