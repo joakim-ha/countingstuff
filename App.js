@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
-import { AddRow } from "./components/AddRow";
+import { AddRow, RemoveRows } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
@@ -51,6 +51,10 @@ export default function App() {
     setCountables(newState);
   };
 
+  const removeAllCountables = () => {
+    setCountables([]);
+  };
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -71,6 +75,7 @@ export default function App() {
             <View style={{ flex: 1 }} />
           </ScrollView>
           <AddRow addNewCountable={addNewCountable} />
+          <RemoveRows removeAllCountables={removeAllCountables} />
           <StatusBar style="auto" />
         </SafeAreaView>
       </SafeAreaProvider>

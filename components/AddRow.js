@@ -19,3 +19,16 @@ export const AddRow = ({ addNewCountable }) => {
     </View>
   );
 };
+
+export const RemoveRows = ({ removeAllCountables }) => {
+
+  const handleDelete = () => {
+    removeAllCountables();
+  };
+
+  return (
+    <View style={CommonStyles.row}>
+      <CountableButton label="Remove all" submit={handleDelete} />
+    </View>
+  );
+};
