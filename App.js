@@ -16,6 +16,7 @@ import { loadCountables, saveCountables } from "./storage/CountableStorage";
 export default function App() {
   const [countables, setCountables] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     loadCountables().then((result) => {
@@ -37,7 +38,8 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
+    const newState = [...countables, { key: key, name: name, count: 0 }];
+    setKey(key + 1);
     setCountables(newState);
   };
 
@@ -54,7 +56,7 @@ export default function App() {
             {countables.map((countable, index) => (
               <CountableRow
                 countable={countable}
-                key={countable.name}
+                key={countable.key}
                 changeCount={changeCount}
                 index={index}
               />
