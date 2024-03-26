@@ -8,7 +8,7 @@ import { showMessage, hideMessage } from "react-native-flash-message";
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
 
-  const showErrorMsg = () => {
+  const showErrorMsg = () => {  // Function that shows the error message
     showMessage({
       message: "Please enter a name",
       type: "error",

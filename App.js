@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
   Platform,
+  Keyboard,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -42,6 +43,7 @@ export default function App() {
     const newState = [...countables, { key: key, name: name, count: 0 }];
     setKey(key + 1);
     setCountables(newState);
+    Keyboard.dismiss();   // Using the imported 'Keyboard' component to hide the keyboard
   };
 
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
