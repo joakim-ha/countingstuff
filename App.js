@@ -12,6 +12,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
+import FlashMessage from "react-native-flash-message";
 
 export default function App() {
   const [countables, setCountables] = useState([]);
@@ -65,6 +66,7 @@ export default function App() {
           </ScrollView>
           <AddRow addNewCountable={addNewCountable} />
           <StatusBar style="auto" />
+          <FlashMessage position="top" />
         </SafeAreaView>
       </SafeAreaProvider>
     </KeyboardAvoidingView>
