@@ -7,6 +7,7 @@ import {
   View,
   Platform,
   Keyboard,
+  Text,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -60,7 +61,8 @@ export default function App() {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <ScrollView>
-            {countables
+            {countables.length > 0 ?
+              countables
               .sort(sortCountables)       // Calls sortCountables() with current and previous countable
               .map((countable, index) => (
               <CountableRow
@@ -69,7 +71,11 @@ export default function App() {
                 changeCount={changeCount}
                 index={index}
               />
-            ))}
+            )) 
+            :
+              <View style={styles.alternate_view}>
+                <Text>Enter a name and press 'Add' to add a countable!</Text>
+              </View>}
             <View style={{ flex: 1 }} />
           </ScrollView>
           <AddRow addNewCountable={addNewCountable} />
@@ -86,5 +92,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "flex-end",
+  },
+  alternate_view: {
+    alignItems: "center",
+    marginTop: 50,
   },
 });
