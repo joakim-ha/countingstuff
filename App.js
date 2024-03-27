@@ -16,6 +16,7 @@ import { loadCountables, saveCountables } from "./storage/CountableStorage";
 export default function App() {
   const [countables, setCountables] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     loadCountables().then((result) => {
@@ -46,9 +47,29 @@ export default function App() {
     setCountables(newState);
   };
 
+  const checkNamePresent = (name) => {
+    return countables.some((item) => item.name === name);
+  }
+
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
-    setCountables(newState);
+    console.log("Trying to add the following countable:'", name, "'");
+
+    //The name should not already be present, and cannot be empty/blank
+    if (!checkNamePresent(name) && name.trim() !== ""){
+      const newState = [...countables, { name, count: 0 }];
+      console.log("Adding countable:'", name, "'");
+      setCountables(newState);
+      setErrorMessage("");
+    }
+    // Name cannot be blank/empty
+    else if (name.trim() === ""){
+      setErrorMessage("Must provide a name!");
+      console.log("Empty name: '", name, "'");
+    } else {
+      setErrorMessage("Name already exists");
+      console.log("Name present in countables array '", name, "'");
+    }
+  
   };
 
   const removeAllCountables = () => {
@@ -74,7 +95,10 @@ export default function App() {
             ))}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
+          <AddRow
+            addNewCountable={addNewCountable}
+            errorMessage={errorMessage}
+          />
           <RemoveRows removeAllCountables={removeAllCountables} />
           <StatusBar style="auto" />
         </SafeAreaView>

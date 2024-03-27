@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { View, TextInput } from "react-native";
+import { View, TextInput, Text } from "react-native";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles, DeleteStyles } from "../styles/CommonStyles";
 
-export const AddRow = ({ addNewCountable }) => {
+export const AddRow = ({ addNewCountable, errorMessage }) => {
   const [name, setName] = useState("");
 
   const handleSubmit = () => {
@@ -14,7 +14,12 @@ export const AddRow = ({ addNewCountable }) => {
 
   return (
     <View style={CommonStyles.row}>
-      <TextInput placeholder="Enter name" onChangeText={setName} value={name}/>
+      <TextInput
+        placeholder={errorMessage ? errorMessage : "Enter name"}
+        onChangeText={setName}
+        value={name}
+        style={errorMessage ? CommonStyles.errorTextInput : null}
+      />
       <CountableButton label="Add" submit={handleSubmit} />
     </View>
   );
