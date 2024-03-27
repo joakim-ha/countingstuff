@@ -2,7 +2,7 @@ import { useState } from "react";
 import { View, TextInput } from "react-native";
 
 import { CountableButton } from "./CountableButton";
-import { CommonStyles } from "../styles/CommonStyles";
+import { CommonStyles, DeleteStyles } from "../styles/CommonStyles";
 
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
@@ -27,8 +27,12 @@ export const RemoveRows = ({ removeAllCountables }) => {
   };
 
   return (
-    <View style={CommonStyles.row}>
-      <CountableButton label="Remove all" submit={handleDelete} />
+    <View style={DeleteStyles.row}>
+      <CountableButton
+        label="Remove all"
+        submit={handleDelete}
+        style={DeleteStyles.button}
+      />
     </View>
   );
 };
