@@ -4,12 +4,14 @@ import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
 export const CountableRow = ({ countable, changeCount, index }) => (
-  <View style={CommonStyles.row}>
-    <View style={styles.nameColumn}>
+  <View style={styles.countableRowContainer}>
+    <View style={styles.name}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
+    </View>
+    <View style={styles.counter}>
       <Text style={CommonStyles.textItem}>{countable.count}</Text>
     </View>
-    <View style={styles.buttonColumn}>
+    <View>
       <CountableButton
         label="+"
         submit={() => {
@@ -27,11 +29,24 @@ export const CountableRow = ({ countable, changeCount, index }) => (
 );
 
 const styles = StyleSheet.create({
-  nameColumn: {
-    flex: 0.8,
+  countableRowContainer: {
+    flexDirection: "row",
     alignItems: "center",
+    borderColor: "lightblue",
+    justifyContent: "space-between",
+    borderWidth: 1,
+    borderRadius: 5,
+    margin: 5,
+    paddingStart: 20,
   },
-  buttonColumn: {
-    flex: 0.2,
+  name: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    maxWidth: 200,
+  },
+  counter: {
+    flex: 1,
+    alignItems: "flex-end",
+    padding: 20,
   },
 });
