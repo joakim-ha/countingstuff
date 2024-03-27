@@ -46,6 +46,10 @@ export default function App() {
     Keyboard.dismiss();   // Using the imported 'Keyboard' component to hide the keyboard
   };
 
+  function sortCountables(countable_a, countable_b) {
+    return countable_a.count > countable_b.count ? -1 : (countable_a.count < countable_b.count ? 1 : 0);
+  }
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -56,7 +60,9 @@ export default function App() {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <ScrollView>
-            {countables.map((countable, index) => (
+            {countables
+              .sort(sortCountables)       // Calls sortCountables() with current and previous countable
+              .map((countable, index) => (
               <CountableRow
                 countable={countable}
                 key={countable.key}
