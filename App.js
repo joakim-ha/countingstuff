@@ -8,6 +8,7 @@ import {
   Platform,
   Keyboard,
   Text,
+  TextInput,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -76,9 +77,8 @@ export default function App() {
                 changeCount={changeCount}
                 index={index}
                 remove={removeCountable}
-              />
-            )) 
-            :
+              />)) 
+              :
               <View style={styles.alternate_view}>
                 <Text>Enter a name and press 'Add' to add a countable!</Text>
               </View>}

@@ -3,7 +3,7 @@ import { View, TextInput, StyleSheet } from "react-native";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
