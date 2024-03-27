@@ -47,6 +47,11 @@ export default function App() {
     Keyboard.dismiss();   // Using the imported 'Keyboard' component to hide the keyboard
   };
 
+  const removeCountable = (key) => {
+    setCountables(countables.filter(countable => countable.key !== key));
+    // Optionally setKey(key-1) but it does not really matter
+  }
+
   function sortCountables(countable_a, countable_b) {
     return countable_a.count > countable_b.count ? -1 : (countable_a.count < countable_b.count ? 1 : 0);
   }
@@ -70,6 +75,7 @@ export default function App() {
                 key={countable.key}
                 changeCount={changeCount}
                 index={index}
+                remove={removeCountable}
               />
             )) 
             :

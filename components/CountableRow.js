@@ -1,10 +1,18 @@
 import { Text, View, StyleSheet } from "react-native";
 
 import { CountableButton } from "./CountableButton";
+import { CloseButton } from "./CloseButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, changeCount, index }) => (
+export const CountableRow = ({ countable, changeCount, index, remove }) => (
   <View style={CommonStyles.row}>
+    <View>
+      <CloseButton 
+        submit={() => {
+          remove(countable.key);
+        }}
+      />
+    </View>
     <View style={styles.nameColumn}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
       <Text style={CommonStyles.textItem}>{countable.count}</Text>
