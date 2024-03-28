@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
   Platform,
+  Alert,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -37,8 +38,17 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
-    setCountables(newState);
+    const existing = countables.find((item) => item.name === name);
+    if (!existing) {
+      const newState = [...countables, { name, count: 0 }];
+      setCountables(newState);
+    } else {
+      Alert.alert(
+        "Item Already Exists",
+        `The countable "${name}" already exists.`,
+        [{ text: "OK" }],
+      );
+    }
   };
 
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
