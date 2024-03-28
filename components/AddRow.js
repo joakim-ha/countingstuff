@@ -14,6 +14,7 @@ export const AddRow = ({ addNewCountable }) => {
           style={CommonStyles.input}
           placeholder="Enter name"
           onChangeText={setName}
+          value={name}
         />
       </View>
       <View>
@@ -21,6 +22,7 @@ export const AddRow = ({ addNewCountable }) => {
           label="Add"
           submit={() => {
             addNewCountable(name);
+            setName('');
             Keyboard.dismiss();
           }}
         />
