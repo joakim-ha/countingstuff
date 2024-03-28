@@ -17,14 +17,15 @@ export const CommonStyles = StyleSheet.create({
   rowContainer: {
     flexDirection: "row",
     alignItems: "center",
+    marginLeft: 5
   },
   inputContainer: {
     flex: 1, // Take up remaining space
-    marginRight: 10, // Adjust spacing as needed
+    marginRight: 5, // Adjust spacing as needed
   },
   input: {
     borderColor: "lightblue",
-    borderWidth: 1,
+    borderWidth: 3,
     borderRadius: 5,
     padding: 10,
     fontSize: 16,

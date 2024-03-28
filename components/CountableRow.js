@@ -28,10 +28,10 @@ export const CountableRow = ({ countable, changeCount, index }) => (
 
 const styles = StyleSheet.create({
   nameColumn: {
-    flex: 0.8,
+    flex: 0.6,
     alignItems: "center",
   },
   buttonColumn: {
-    flex: 0.2,
+    flex: 0.4,
   },
 });
