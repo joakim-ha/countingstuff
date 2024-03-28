@@ -1,9 +1,6 @@
 import { StyleSheet } from "react-native";
 
 export const CommonStyles = StyleSheet.create({
-  textItem: {
-    fontSize: 40,
-  },
   row: {
     flexDirection: "row",
     alignItems: "center",
@@ -13,5 +10,23 @@ export const CommonStyles = StyleSheet.create({
     margin: 5,
     paddingEnd: 20,
     paddingStart: 20,
+  },
+  textItem: {
+    fontSize: 40,
+  },
+  rowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  inputContainer: {
+    flex: 1, // Take up remaining space
+    marginRight: 10, // Adjust spacing as needed
+  },
+  input: {
+    borderColor: "lightblue",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    fontSize: 16,
   },
 });
