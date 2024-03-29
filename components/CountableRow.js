@@ -3,8 +3,25 @@ import { Text, View, StyleSheet } from "react-native";
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, changeCount, index }) => (
+export const CountableRow = ({
+  countable,
+  changeCount,
+  index,
+  deleteCountable,
+}) => (
   <View style={CommonStyles.row}>
+    <View style={styles.buttonColumn}>
+      <CountableButton
+        submit={() => {
+          deleteCountable(index);
+        }}
+        imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/delete.png")}
+      />
+      <CountableButton
+        submit={() => {}}
+        imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/edit.png")}
+      />
+    </View>
     <View style={styles.nameColumn}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
       <Text style={CommonStyles.textItem}>{countable.count}</Text>

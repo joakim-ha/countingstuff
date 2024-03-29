@@ -37,6 +37,12 @@ export default function App() {
     setCountables(newState);
   };
 
+  const deleteCountable = (index) => {
+    const newState = [...countables];
+    newState.splice(index, 1);
+    setCountables(newState);
+  };
+
   const addNewCountable = (name) => {
     const existing = countables.find((item) => item.name === name);
     if (!existing) {
@@ -67,6 +73,7 @@ export default function App() {
                 key={countable.name}
                 changeCount={changeCount}
                 index={index}
+                deleteCountable={deleteCountable}
               />
             ))}
             <View style={{ flex: 1 }} />
