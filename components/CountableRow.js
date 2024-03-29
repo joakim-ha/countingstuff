@@ -8,6 +8,7 @@ export const CountableRow = ({
   changeCount,
   index,
   deleteCountable,
+  editCountable,
 }) => (
   <View style={CommonStyles.row}>
     <View style={styles.buttonColumn}>
@@ -18,7 +19,9 @@ export const CountableRow = ({
         imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/delete.png")}
       />
       <CountableButton
-        submit={() => {}}
+        submit={() => {
+          editCountable(index);
+        }}
         imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/edit.png")}
       />
     </View>
