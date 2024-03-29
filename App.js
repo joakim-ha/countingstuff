@@ -15,6 +15,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
+import { SortingRow } from "./components/StortingRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
 export default function App() {
@@ -93,6 +94,18 @@ export default function App() {
     }
   };
 
+  const sortAlpha = () => {
+    const sortedCountables = [...countables].sort((a, b) =>
+      a.name.localeCompare(b.name),
+    );
+    setCountables(sortedCountables);
+  };
+
+  const sortCount = () => {
+    const sortedCountables = [...countables].sort((a, b) => b.count - a.count);
+    setCountables(sortedCountables);
+  };
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -102,6 +115,8 @@ export default function App() {
     >
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
+          <SortingRow sortAlpha={sortAlpha} sortCount={sortCount} />
+
           <ScrollView>
             {countables.map((countable, index) => (
               <CountableRow
