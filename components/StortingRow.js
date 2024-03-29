@@ -10,13 +10,13 @@ export const SortingRow = ({ sortAlpha, sortCount }) => (
         submit={() => {
           sortAlpha();
         }}
-        imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/alpha.png")}
+        imageSource={require("../images/alpha.png")}
       />
       <CountableButton
         submit={() => {
           sortCount();
         }}
-        imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/num.png")}
+        imageSource={require("../images/num.png")}
       />
     </View>
   </View>

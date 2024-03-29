@@ -115,9 +115,8 @@ export default function App() {
     >
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
-          <SortingRow sortAlpha={sortAlpha} sortCount={sortCount} />
-
           <ScrollView>
+            <SortingRow sortAlpha={sortAlpha} sortCount={sortCount} />
             {countables.map((countable, index) => (
               <CountableRow
                 countable={countable}

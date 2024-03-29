@@ -16,13 +16,13 @@ export const CountableRow = ({
         submit={() => {
           deleteCountable(index);
         }}
-        imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/delete.png")}
+        imageSource={require("../images/delete.png")}
       />
       <CountableButton
         submit={() => {
           editCountable(index);
         }}
-        imageSource={require("C:/Users/itlab/Desktop/mobilaAplcationer/uppgift1/countingstuff/images/edit.png")}
+        imageSource={require("../images/edit.png")}
       />
     </View>
     <View style={styles.nameColumn}>
