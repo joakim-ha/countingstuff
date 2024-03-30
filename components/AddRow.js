@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput } from "react-native";
+import { View, TextInput, Keyboard } from "react-native";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
@@ -19,13 +19,21 @@ export const AddRow = ({ addNewCountable, editCountable, errorMessage, initialVa
     addNewCountable(name);
     setName(""); 
     setInitialValueState(""); 
+    Keyboard.dismiss()
   };
 
   const handleEdit = () => {
-    console.log("EDITING");
-    editCountable(initialValue);
+    console.log(
+      "EDITING initialvalue: '",
+      initialValue,
+      "' and updated name: '",
+      name,
+      "'",
+    );
+    editCountable(initialValue, name);
     setName("");
     setInitialValueState(""); 
+    Keyboard.dismiss()
   };
 
   return (

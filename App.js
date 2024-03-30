@@ -17,7 +17,7 @@ export default function App() {
   const [countables, setCountables] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [editableName, setEditableName] = useState("");
+  const [editableName, setEditableName] = useState("")
 
   useEffect(() => {
     loadCountables().then((result) => {
@@ -70,8 +70,27 @@ export default function App() {
     return countables.some((item) => item.name === name);
   };
 
-  const editCountable = (name) => {
-    console.log("implement editable:'", name,"'");
+  const editCountable = (oldName, newName) => {
+    if (newName.trim() === "") {
+      setErrorMessage("Cannot update to an empty name!");
+      return;
+    }
+
+    if (newName !== oldName && checkNamePresent(newName)) {
+      setErrorMessage("Cannot update to name that exists");
+      return;
+    }
+
+    console.log("old name: '", oldName, "'");
+    console.log("new name: '", newName, "'");
+
+    const updatedCountables = countables.map((countable) => {
+      if (countable.name === oldName) {
+        return { ...countable, name: newName };
+      }
+      return countable;
+    });
+    setCountables(updatedCountables);
   };
 
   return (

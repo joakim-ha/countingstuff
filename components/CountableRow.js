@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// CountableRow.js
+import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 import { CountableButton } from "./CountableButton";
@@ -15,7 +16,7 @@ export const CountableRow = ({ countable, changeCount, onNamePress }) => {
 
   return (
     <View style={CommonStyles.row}>
-      <TouchableOpacity onPress={onNamePress}>
+      <TouchableOpacity onPress={() => onNamePress(countable.name)}>
         <View style={styles.nameColumn}>
           <Text style={CommonStyles.textItem}>{countable.name}</Text>
           <Text style={CommonStyles.textItem}>{countable.count}</Text>
