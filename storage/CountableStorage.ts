@@ -1,6 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export const saveCountables = async (countables) => {
+import { Countable } from "../interfaces/Countable";
+
+export const saveCountables = async (countables: Countable[]) => {
   await AsyncStorage.setItem("countables", JSON.stringify(countables));
 };
 
