@@ -1,16 +1,31 @@
-import { useState } from "react";
-import { View, TextInput, Text, Keyboard } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, TextInput } from "react-native";
 
 import { CountableButton } from "./CountableButton";
-import { CommonStyles, DeleteStyles } from "../styles/CommonStyles";
+import { CommonStyles } from "../styles/CommonStyles";
 
-export const AddRow = ({ addNewCountable, errorMessage }) => {
+export const AddRow = ({ addNewCountable, editCountable, errorMessage, initialValue }) => {
   const [name, setName] = useState("");
+  const [initialValueState, setInitialValueState] = useState(initialValue);
+
+  useEffect(() => {
+    if (initialValue) {
+      setName(initialValue);
+      setInitialValueState(initialValue);
+    }
+  }, [initialValue]);
 
   const handleSubmit = () => {
     addNewCountable(name);
+    setName(""); 
+    setInitialValueState(""); 
+  };
+
+  const handleEdit = () => {
+    console.log("EDITING");
+    editCountable(initialValue);
     setName("");
-    Keyboard.dismiss()
+    setInitialValueState(""); 
   };
 
   return (
@@ -21,24 +36,11 @@ export const AddRow = ({ addNewCountable, errorMessage }) => {
         value={name}
         style={errorMessage ? CommonStyles.errorTextInput : null}
       />
-      <CountableButton label="Add" submit={handleSubmit} />
-    </View>
-  );
-};
-
-export const RemoveRows = ({ removeAllCountables }) => {
-
-  const handleDelete = () => {
-    removeAllCountables();
-  };
-
-  return (
-    <View style={DeleteStyles.row}>
-      <CountableButton
-        label="Remove all"
-        submit={handleDelete}
-        style={DeleteStyles.button}
-      />
+      {initialValueState ? (
+        <CountableButton label="Update" submit={handleEdit} />
+      ) : (
+        <CountableButton label="Add" submit={handleSubmit} />
+      )}
     </View>
   );
 };

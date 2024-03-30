@@ -1,10 +1,10 @@
-import React from 'react';
-import { Text, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, changeCount }) => {
+export const CountableRow = ({ countable, changeCount, onNamePress }) => {
   const handleIncrement = () => {
     changeCount(1);
   };
@@ -15,13 +15,14 @@ export const CountableRow = ({ countable, changeCount }) => {
 
   return (
     <View style={CommonStyles.row}>
-      <View style={styles.nameColumn}>
-        <Text style={CommonStyles.textItem}>{countable.name}</Text>
-        <Text style={CommonStyles.textItem}>{countable.count}</Text>
-      </View>
+      <TouchableOpacity onPress={onNamePress}>
+        <View style={styles.nameColumn}>
+          <Text style={CommonStyles.textItem}>{countable.name}</Text>
+          <Text style={CommonStyles.textItem}>{countable.count}</Text>
+        </View>
+      </TouchableOpacity>
       <View style={styles.buttonColumn}>
         <CountableButton label="+" submit={handleIncrement} />
-        {/*Only display the decrement option if the counter is 0 or above */}
         {countable.count > 0 && (
           <CountableButton label="-" submit={handleDecrement} />
         )}
