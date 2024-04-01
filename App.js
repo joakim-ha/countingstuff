@@ -12,12 +12,14 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [countables, setCountables] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    //AsyncStorage.clear();
     loadCountables().then((result) => {
       setCountables(result);
       setIsLoaded(true);
@@ -45,6 +47,11 @@ export default function App() {
     setCountables(newState);
   };
 
+  const deleteCountable = (index) => {
+    const newState = countables.filter((item, idx) => idx !== index);
+    setCountables(newState);
+  };
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -63,6 +70,7 @@ export default function App() {
            key={countable.name}
              changeCount={changeCount}
             index={index}
+            deleteCountable={deleteCountable}
           />
         ))}
             <View style={{ flex: 1 }} />
