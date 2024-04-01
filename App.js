@@ -52,6 +52,14 @@ export default function App() {
     setCountables(newState);
   };
 
+  const checkDuplicates = (name)=>{
+    const list= [...countables];
+
+    const result= list.find(countable => countable.name===name);
+
+    return !!result;
+  }
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -75,7 +83,7 @@ export default function App() {
         ))}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
+          <AddRow addNewCountable={addNewCountable} checkDuplicates={checkDuplicates} />
           <StatusBar style="auto" />
         </SafeAreaView>
       </SafeAreaProvider>

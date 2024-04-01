@@ -4,7 +4,7 @@ import { View, TextInput, Keyboard, Alert } from "react-native";
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const AddRow = ({ addNewCountable }) => {
+export const AddRow = ({ addNewCountable, checkDuplicates }) => {
   const [name, setName] = useState("");
 
   return (
@@ -22,8 +22,15 @@ export const AddRow = ({ addNewCountable }) => {
           label="Add"
           submit={() => {
             if(name){
-              addNewCountable(name);
-              setName('');
+              if(!checkDuplicates(name)){
+                addNewCountable(name);
+                setName('');
+              }
+              else{
+                Alert.alert('Name already exist in the list!', 'Try again', [
+                  {text: 'OK'},
+                ]);
+              }
             }else{
               Alert.alert('A name must be given!', 'Try again', [
                 {text: 'OK'},
