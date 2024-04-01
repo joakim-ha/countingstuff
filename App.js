@@ -7,6 +7,7 @@ import {
   StyleSheet,
   View,
   Platform,
+  Text,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -41,6 +42,7 @@ export default function App() {
     }
 
     setCountables(newState);
+    sortCountablesByCount();
   };
 
   const addNewCountable = (name) => {
@@ -58,6 +60,15 @@ export default function App() {
     setCountables(newState);
   };
 
+  const sortCountablesByCount = () => {
+    if (countables.length > 0) {
+      const sortedCountables = [...countables].sort(
+        (a, b) => b.count - a.count
+      );
+      setCountables(sortedCountables);
+    }
+  };
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -68,14 +79,21 @@ export default function App() {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <ScrollView>
-            {countables.map((countable, index) => (
-              <CountableRow
-                countable={countable}
-                key={countable.name}
-                changeCount={changeCount}
-                index={index}
-              />
-            ))}
+            {countables.length === 0 ? (
+              <Text style={styles.noCountablesText}>
+                Chirp chirp... no birds here. Get out of your house and start
+                looking!
+              </Text>
+            ) : (
+              countables.map((countable, index) => (
+                <CountableRow
+                  countable={countable}
+                  key={countable.name}
+                  changeCount={changeCount}
+                  index={index}
+                />
+              ))
+            )}
             <View style={{ flex: 1 }} />
           </ScrollView>
           <AddRow addNewCountable={addNewCountable} />
@@ -91,5 +109,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "flex-end",
+  },
+  noCountablesText: {
+    fontSize: 18,
+    color: "gray",
+    textAlign: "center",
+    marginTop: 40,
+    padding: 30,
   },
 });
