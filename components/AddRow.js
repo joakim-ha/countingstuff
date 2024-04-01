@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput, Keyboard } from "react-native";
+import { View, TextInput, Keyboard, Alert } from "react-native";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
@@ -21,8 +21,14 @@ export const AddRow = ({ addNewCountable }) => {
         <CountableButton
           label="Add"
           submit={() => {
-            addNewCountable(name);
-            setName('');
+            if(name){
+              addNewCountable(name);
+              setName('');
+            }else{
+              Alert.alert('A name must be given!', 'Try again', [
+                {text: 'OK'},
+              ]);
+            }
             Keyboard.dismiss();
           }}
         />

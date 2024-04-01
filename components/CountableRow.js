@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Alert } from "react-native";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
@@ -25,7 +25,10 @@ export const CountableRow = ({ countable, changeCount, index, deleteCountable })
        <CountableButton
         label="Delete"
         submit={() => {
-          deleteCountable(index);
+          Alert.alert('Are you sure you wanna delete it?','Confirm', [
+            {text: 'cancel', style: "cancel"},
+            {text: 'OK', onPress: ()=>{ deleteCountable(index);}},
+          ]);
         }}
       />
     </View>
