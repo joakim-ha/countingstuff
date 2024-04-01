@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 import {
@@ -18,6 +19,7 @@ export default function App() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    //AsyncStorage.clear();
     loadCountables().then((result) => {
       setCountables(result);
       setIsLoaded(true);
@@ -33,10 +35,25 @@ export default function App() {
   const changeCount = (amount, index) => {
     const newState = [...countables];
     newState[index].count += amount;
+
+    if (newState[index].count <= 0) {
+      newState[index].count = 0;
+    }
+
     setCountables(newState);
   };
 
   const addNewCountable = (name) => {
+    if (name === "") {
+      console.warn("Item name cannot be empty.");
+      return;
+    }
+
+    if (countables.some((countable) => countable.name === name)) {
+      console.warn("Item already exists.");
+      return;
+    }
+
     const newState = [...countables, { name, count: 0 }];
     setCountables(newState);
   };
