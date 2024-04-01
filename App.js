@@ -37,9 +37,15 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
-    setCountables(newState);
+    if(name != "" && countables.filter((i) => i.name == name).length == 0){
+      const newState = [...countables, { name, count: 0 }];
+      setCountables(newState);
+    }
   };
+
+  const deleteRow = (index) => {
+    setCountables(countables.filter((_, i) => i !== index));
+  }
 
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
@@ -56,6 +62,7 @@ export default function App() {
                 countable={countable}
                 key={countable.name}
                 changeCount={changeCount}
+                deleteRow={deleteRow}
                 index={index}
               />
             ))}
