@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -14,8 +14,11 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
+import ValidationService from "./utils/validation";
 
 export default function App() {
+  const scrollViewRef = useRef(null);
+
   const [countables, setCountables] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -45,16 +48,11 @@ export default function App() {
     sortCountablesByCount();
   };
 
-  const addNewCountable = (name) => {
-    if (name === "") {
-      console.warn("Item name cannot be empty.");
+  const addNewCountable = (name, index) => {
+    if (!ValidationService.addRowValidation(name, countables, index)) {
       return;
     }
-
-    if (countables.some((countable) => countable.name === name)) {
-      console.warn("Item already exists.");
-      return;
-    }
+    scrollViewRef.current.scrollToEnd({ animated: true });
 
     const newState = [...countables, { name, count: 0 }];
     setCountables(newState);
@@ -69,26 +67,6 @@ export default function App() {
     }
   };
 
-  /*   const renderRightActions = () => {
-    return (
-      <TouchableOpacity
-        style={{
-          backgroundColor: "red",
-          justifyContent: "center",
-          alignItems: "center",
-          width: 100,
-          height: "100%",
-        }}
-        onPress={() => {
-          // Implement your delete action here
-          console.log("Item deleted");
-        }}
-      >
-        <Text style={{ color: "white" }}>Delete</Text>
-      </TouchableOpacity>
-    );
-  }; */
-
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -98,7 +76,7 @@ export default function App() {
     >
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
-          <ScrollView>
+          <ScrollView ref={scrollViewRef}>
             {countables.length === 0 ? (
               <Text style={styles.noCountablesText}>
                 Chirp chirp... no birds here. Get out of your house and start

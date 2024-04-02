@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, TextInput, StyleSheet, Keyboard } from "react-native";
 
 import { CountableButton } from "./CountableButton";
+import { CommonStyles } from "../styles/CommonStyles";
 
 export const AddRow = ({ addNewCountable }) => {
   const [name, setName] = useState("");
@@ -10,10 +11,11 @@ export const AddRow = ({ addNewCountable }) => {
     <View style={styles.addRowContainer}>
       <View style={styles.inputContainer}>
         <TextInput
-          style={styles.text}
+          style={CommonStyles.textInput}
           placeholder="Enter name"
           onChangeText={(text) => setName(text)}
           value={name}
+          maxLength={25}
         />
       </View>
       <CountableButton
@@ -44,10 +46,5 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     marginRight: 5,
-  },
-  text: {
-    fontSize: 20,
-    flexShrink: 1,
-    paddingEnd: 0,
   },
 });
