@@ -15,6 +15,7 @@ export const AddRow = ({ addNewCountable }) => {
         submit={() => {
           addNewCountable(name);
         }}
+        isDisabled={name.trim() === ""}
       />
     </View>
   );
