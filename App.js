@@ -41,16 +41,6 @@ export default function App() {
     setCountables(newState);
   };
 
-  const isValidInput = (name) => {
-    return !countables.some((countable) => countable.name === name);
-  };
-
-  const handleSubmit = (name) => {
-    if (isValidInput(name)) {
-      addNewCountable(name);
-    }
-  };
-
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -71,7 +61,7 @@ export default function App() {
             ))}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow handleSubmit={handleSubmit} />
+          <AddRow addNewCountable={addNewCountable} countables={countables} />
           <StatusBar style="auto" />
         </SafeAreaView>
       </SafeAreaProvider>
