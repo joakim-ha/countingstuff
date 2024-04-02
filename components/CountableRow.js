@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { useState, useRef, useEffect } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from "react-native";
 import {
   Swipeable,
   GestureHandlerRootView,
@@ -6,6 +13,7 @@ import {
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
+import ValidationService from "../utils/validation";
 
 export const CountableRow = ({
   setCountables,
@@ -14,6 +22,17 @@ export const CountableRow = ({
   changeCount,
   index,
 }) => {
+  const swipeableRef = useRef(null);
+  const inputRef = useRef(null);
+  const [editMode, setEditMode] = useState(false);
+  const [editedName, setEditedName] = useState(countable.name);
+
+  useEffect(() => {
+    if (editMode && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [editMode]);
+
   const handleDelete = () => {
     const updatedCountables = [...countables];
     updatedCountables.splice(index, 1);
@@ -21,7 +40,21 @@ export const CountableRow = ({
   };
 
   const handleEdit = () => {
+    setEditMode(true);
     console.log("Item edited");
+    swipeableRef.current.close(); // Close the Swipeable
+  };
+
+  const handleSaveEdit = () => {
+    if (!ValidationService.addRowValidation(editedName, countables, index)) {
+      inputRef.current.focus();
+      return;
+    }
+
+    const updatedCountables = [...countables];
+    updatedCountables[index].name = editedName;
+    setCountables(updatedCountables);
+    setEditMode(false);
   };
 
   const renderLeftActions = () => {
@@ -45,27 +78,39 @@ export const CountableRow = ({
 
   return (
     <GestureHandlerRootView>
-      <Swipeable renderLeftActions={renderLeftActions}>
+      <Swipeable ref={swipeableRef} renderLeftActions={renderLeftActions}>
         <View style={styles.countableRowContainer}>
-          <View style={styles.name}>
-            <Text style={CommonStyles.textItem}>{countable.name}</Text>
-          </View>
+          {editMode ? (
+            <TextInput
+              ref={inputRef}
+              style={CommonStyles.textInput}
+              value={editedName}
+              onChangeText={setEditedName}
+              onBlur={handleSaveEdit}
+            />
+          ) : (
+            <View style={styles.name}>
+              <Text style={CommonStyles.textItem}>{countable.name}</Text>
+            </View>
+          )}
           <View style={styles.counter}>
             <Text style={CommonStyles.textItem}>{countable.count}</Text>
           </View>
           <View>
-            <CountableButton
-              label="+"
-              submit={() => {
-                changeCount(1, index);
-              }}
-            />
-            <CountableButton
-              label="-"
-              submit={() => {
-                changeCount(-1, index);
-              }}
-            />
+            <>
+              <CountableButton
+                label="+"
+                submit={() => {
+                  changeCount(1, index);
+                }}
+              />
+              <CountableButton
+                label="-"
+                submit={() => {
+                  changeCount(-1, index);
+                }}
+              />
+            </>
           </View>
         </View>
       </Swipeable>
@@ -75,6 +120,7 @@ export const CountableRow = ({
 
 const styles = StyleSheet.create({
   countableRowContainer: {
+    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "center",
     borderColor: "lightblue",
