@@ -4,7 +4,7 @@ import { View, TextInput } from "react-native";
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const AddRow = ({ addNewCountable }) => {
+export const AddRow = ({ handleSubmit }) => {
   const [name, setName] = useState("");
 
   return (
@@ -13,7 +13,7 @@ export const AddRow = ({ addNewCountable }) => {
       <CountableButton
         label="Add"
         submit={() => {
-          addNewCountable(name);
+          handleSubmit(name);
         }}
         isDisabled={name.trim() === ""}
       />
