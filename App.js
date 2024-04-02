@@ -69,6 +69,26 @@ export default function App() {
     }
   };
 
+  /*   const renderRightActions = () => {
+    return (
+      <TouchableOpacity
+        style={{
+          backgroundColor: "red",
+          justifyContent: "center",
+          alignItems: "center",
+          width: 100,
+          height: "100%",
+        }}
+        onPress={() => {
+          // Implement your delete action here
+          console.log("Item deleted");
+        }}
+      >
+        <Text style={{ color: "white" }}>Delete</Text>
+      </TouchableOpacity>
+    );
+  }; */
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -87,6 +107,8 @@ export default function App() {
             ) : (
               countables.map((countable, index) => (
                 <CountableRow
+                  countables={countables}
+                  setCountables={setCountables}
                   countable={countable}
                   key={countable.name}
                   changeCount={changeCount}
