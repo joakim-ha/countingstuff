@@ -28,5 +28,6 @@ export const AddRow = ({ handleSubmit }) => {
 const styles = StyleSheet.create({
   textInput: {
     fontSize: 24,
+    flex: 1,
   },
 });
