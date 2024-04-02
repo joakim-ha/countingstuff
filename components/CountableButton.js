@@ -8,7 +8,9 @@ export const CountableButton = ({ label, submit, isDisabled }) => (
     onPress={submit}
     disabled={isDisabled}
   >
-    <Text style={CommonStyles.textItem}>{label}</Text>
+    <Text style={[CommonStyles.textItem, isDisabled && styles.disabledText]}>
+      {label}
+    </Text>
   </TouchableOpacity>
 );
 
@@ -18,8 +20,12 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: "lightblue",
     alignItems: "center",
+    paddingHorizontal: 15,
   },
   disabledButton: {
-    backgroundColor: "gray",
+    backgroundColor: "lightgray",
+  },
+  disabledText: {
+    color: "gray",
   },
 });
