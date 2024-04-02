@@ -4,6 +4,9 @@ export const CommonStyles = StyleSheet.create({
   textItem: {
     fontSize: 40,
   },
+  deleteItem: {
+    fontSize: 30,
+  },
   row: {
     flexDirection: "row",
     alignItems: "center",
