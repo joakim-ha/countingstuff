@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { View, TextInput, Text, Keyboard } from "react-native";
 
-
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
