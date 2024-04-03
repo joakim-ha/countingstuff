@@ -19,7 +19,7 @@ CountingStuff app for the Cross-Platform course.
 - [ ] Improve the layout for AddRow
 - [ ] Prevent two objects from having the same name
 - [x] Avoid creating objects without names
-- [ ] Clear the TextInput adter adding an object
+- [x] Clear the TextInput after adding an object
 - [ ] Close the keyboard after adding an object
 - [x] Prevent negative quantities (disable the `-` button when the count is zero)
 - [ ] Keep the list sorted (eg by quantity)

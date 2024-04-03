@@ -14,6 +14,7 @@ export const AddRow = ({ addNewCountable }) => {
     } else {
       setError("");
       addNewCountable(name);
+      setName(""); // clear the TextInput
     }
   };
 
@@ -23,7 +24,11 @@ export const AddRow = ({ addNewCountable }) => {
         <Text style={{ color: "red" }}>{error}</Text>
       </View>
       <View style={CommonStyles.row}>
-        <TextInput placeholder="Enter name" onChangeText={setName} />
+        <TextInput
+          placeholder="Enter name"
+          onChangeText={setName}
+          value={name}
+        />
         <CountableButton label="Add" submit={handleSubmit} />
       </View>
     </View>
