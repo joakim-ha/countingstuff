@@ -16,12 +16,14 @@ export const CountableRow = ({ countable, changeCount, index }) => (
           changeCount(1, index);
         }}
       />
-      <CountableButton
-        label="-"
-        submit={() => {
-          changeCount(-1, index);
-        }}
-      />
+      {countable.count > 0 && (
+        <CountableButton
+          label="-"
+          submit={() => {
+            changeCount(-1, index);
+          }}
+        />
+      )}
     </View>
   </View>
 );

@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { useState, useEffect } from "react";
 import {
   KeyboardAvoidingView,
+  Keyboard,
   ScrollView,
   StyleSheet,
   View,
@@ -37,8 +38,18 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
-    setCountables(newState);
+    const existingCountable = countables.find(
+      (countable) => countable.name === name,
+    );
+    if (!existingCountable && name.trim() !== "") {
+      const newState = [...countables, { name, count: 0 }];
+      setCountables(newState);
+      Keyboard.dismiss();
+    } else {
+      alert(
+        "There already is a countable with this name. Please try a different name.",
+      );
+    }
   };
 
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
