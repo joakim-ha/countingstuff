@@ -20,7 +20,7 @@ CountingStuff app for the Cross-Platform course.
 - [x] Prevent two objects from having the same name
 - [x] Avoid creating objects without names
 - [x] Clear the TextInput after adding an object
-- [ ] Close the keyboard after adding an object
+- [x] Close the keyboard after adding an object
 - [x] Prevent negative quantities (disable the `-` button when the count is zero)
 - [ ] Keep the list sorted (eg by quantity)
 - [ ] Display an alternative view if the list is empty (eg "Nothing to count yet")
