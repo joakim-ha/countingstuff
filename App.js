@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   KeyboardAvoidingView,
   ScrollView,
@@ -11,11 +10,14 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
+import { RemoveRows } from "./components/RemoveRows";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
 export default function App() {
   const [countables, setCountables] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [editableName, setEditableName] = useState("")
 
   useEffect(() => {
     loadCountables().then((result) => {
@@ -30,18 +32,66 @@ export default function App() {
     }
   }, [countables, isLoaded]);
 
-  const changeCount = (amount, index) => {
+  function curry(f) {
+    return function (a) {
+      return function (b) {
+        return f(a, b);
+      };
+    };
+  }
+
+  const changeCount = (index, amount) => {
     const newState = [...countables];
     newState[index].count += amount;
     setCountables(newState);
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
-    setCountables(newState);
+    if (!checkNamePresent(name) && name.trim() !== "") {
+      const newState = [...countables, { name, count: 0 }];
+      setCountables(newState);
+      setErrorMessage("");
+    } else if (name.trim() === "") {
+      setErrorMessage("Must provide a name!");
+    } else {
+      setErrorMessage("Name already exists");
+    }
   };
 
-  // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
+  const editName = (name) => {
+    setEditableName(name);
+  };
+
+  const removeAllCountables = () => {
+    setCountables([]);
+  };
+
+  const checkNamePresent = (name) => {
+    return countables.some((item) => item.name === name);
+  };
+
+  const editCountable = (oldName, newName) => {
+    if (newName.trim() === "") {
+      setErrorMessage("Cannot update to an empty name!");
+      return;
+    }
+
+    if (newName !== oldName && checkNamePresent(newName)) {
+      setErrorMessage("Cannot update to name that exists");
+      return;
+    }
+
+    console.log("old name: '", oldName, "'");
+    console.log("new name: '", newName, "'");
+
+    const updatedCountables = countables.map((countable) => {
+      if (countable.name === oldName) {
+        return { ...countable, name: newName };
+      }
+      return countable;
+    });
+    setCountables(updatedCountables);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -55,14 +105,19 @@ export default function App() {
               <CountableRow
                 countable={countable}
                 key={countable.name}
-                changeCount={changeCount}
-                index={index}
+                changeCount={curry(changeCount)(index)}
+                onNamePress={() => editName(countable.name)}
               />
             ))}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
-          <StatusBar style="auto" />
+          <AddRow
+            addNewCountable={addNewCountable}
+            editCountable={editCountable}
+            errorMessage={errorMessage}
+            initialValue={editableName}
+          />
+          <RemoveRows removeAllCountables={removeAllCountables} />
         </SafeAreaView>
       </SafeAreaProvider>
     </KeyboardAvoidingView>
