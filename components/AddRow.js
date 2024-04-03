@@ -25,8 +25,14 @@ export const AddRow = ({ addNewCountable, countables }) => {
       <View>
         <Text style={{ color: "red" }}>{error}</Text>
       </View>
-      <View style={CommonStyles.row}>
+      <View
+        style={[
+          CommonStyles.row,
+          { flexDirection: "row", justifyContent: "space-between" },
+        ]}
+      >
         <TextInput
+          style={{ flex: 1, height: "100%" }}
           placeholder="Enter name"
           onChangeText={setName}
           value={name}
