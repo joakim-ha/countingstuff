@@ -1,9 +1,15 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Pressable } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, changeCount, index }) => (
+export const CountableRow = ({
+  countable,
+  changeCount,
+  index,
+  removeCountable,
+}) => (
   <View style={CommonStyles.row}>
     <View style={styles.nameColumn}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
@@ -24,6 +30,12 @@ export const CountableRow = ({ countable, changeCount, index }) => (
         isDisabled={countable.count <= 0}
       />
     </View>
+    <Pressable
+      onPress={() => removeCountable(index)}
+      style={styles.removeButton}
+    >
+      <Icon name="trash" size={20} color="white" />
+    </Pressable>
   </View>
 );
 
@@ -34,5 +46,12 @@ const styles = StyleSheet.create({
   },
   buttonColumn: {
     flex: 0.2,
+  },
+  removeButton: {
+    backgroundColor: "red",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
