@@ -41,6 +41,12 @@ export default function App() {
     setCountables(newState);
   };
 
+  const removeCountable = (index) => {
+    const newState = [...countables];
+    newState.splice(index, 1);
+    setCountables(newState);
+  };
+
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
   return (
@@ -56,12 +62,13 @@ export default function App() {
                 countable={countable}
                 key={countable.name}
                 changeCount={changeCount}
+                removeCountable={removeCountable}
                 index={index}
               />
             ))}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
+          <AddRow addNewCountable={addNewCountable} countables={countables} />
           <StatusBar style="auto" />
         </SafeAreaView>
       </SafeAreaProvider>
