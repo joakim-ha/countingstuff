@@ -31,8 +31,10 @@ export const CountableRow = ({ countable, changeCount, index, onDelete }) => {
           }}
           disabled={countable.count < 1}
         />
-        <TouchableOpacity onPress={() => onDelete()}>
-          <Text>Delete</Text>
+        <TouchableOpacity onPress={() => onDelete()} style={styles.deleteButton}>
+          <Text style={styles.deleteButtonText} numberOfLines={1}>
+            Delete
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -45,5 +47,20 @@ const styles = StyleSheet.create({
   },
   buttonColumn: {
     flex: 0.2,
+  },
+  deleteButton: {
+    backgroundColor: 'red',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    margin: 5,
+    minWidth: 80, 
+    alignItems: 'center',
+    justifyContent: 'center', 
+  },
+  
+  deleteButtonText: {
+    color: 'white', 
+    fontSize: 16,
   },
 });
