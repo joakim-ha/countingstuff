@@ -4,13 +4,15 @@ import { View, TextInput, Text } from "react-native";
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const AddRow = ({ addNewCountable }) => {
+export const AddRow = ({ addNewCountable, countables }) => {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = () => {
     if (name.trim() === "") {
       setError("Name cannot be empty");
+    } else if (countables.some((countable) => countable.name === name)) {
+      setError("Name already exists");
     } else {
       setError("");
       addNewCountable(name);

@@ -17,7 +17,7 @@ CountingStuff app for the Cross-Platform course.
 ## Goals done
 
 - [ ] Improve the layout for AddRow
-- [ ] Prevent two objects from having the same name
+- [x] Prevent two objects from having the same name
 - [x] Avoid creating objects without names
 - [x] Clear the TextInput after adding an object
 - [ ] Close the keyboard after adding an object
