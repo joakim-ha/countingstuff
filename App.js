@@ -6,16 +6,21 @@ import {
   StyleSheet,
   View,
   Platform,
+  Keyboard,
+  Text,
+  TextInput,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
+import FlashMessage from "react-native-flash-message";
 
 export default function App() {
   const [countables, setCountables] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     loadCountables().then((result) => {
@@ -37,9 +42,20 @@ export default function App() {
   };
 
   const addNewCountable = (name) => {
-    const newState = [...countables, { name, count: 0 }];
+    const newState = [...countables, { key: key, name: name, count: 0 }];
+    setKey(key + 1);
     setCountables(newState);
+    Keyboard.dismiss();   // Using the imported 'Keyboard' component to hide the keyboard
   };
+
+  const removeCountable = (key) => {
+    setCountables(countables.filter(countable => countable.key !== key));
+    // Optionally setKey(key-1) but it does not really matter
+  }
+
+  function sortCountables(countable_a, countable_b) {
+    return countable_a.count > countable_b.count ? -1 : (countable_a.count < countable_b.count ? 1 : 0);
+  }
 
   // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
 
@@ -51,18 +67,26 @@ export default function App() {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <ScrollView>
-            {countables.map((countable, index) => (
+            {countables.length > 0 ?
+              countables
+              .sort(sortCountables)       // Calls sortCountables() with current and previous countable
+              .map((countable, index) => (
               <CountableRow
                 countable={countable}
-                key={countable.name}
+                key={countable.key}
                 changeCount={changeCount}
                 index={index}
-              />
-            ))}
+                remove={removeCountable}
+              />)) 
+              :
+              <View style={styles.alternate_view}>
+                <Text>Enter a name and press 'Add' to add a countable!</Text>
+              </View>}
             <View style={{ flex: 1 }} />
           </ScrollView>
           <AddRow addNewCountable={addNewCountable} />
           <StatusBar style="auto" />
+          <FlashMessage position="top" />
         </SafeAreaView>
       </SafeAreaProvider>
     </KeyboardAvoidingView>
@@ -74,5 +98,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "flex-end",
+  },
+  alternate_view: {
+    alignItems: "center",
+    marginTop: 50,
   },
 });
