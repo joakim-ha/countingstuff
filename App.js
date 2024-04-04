@@ -1,16 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import { useState, useEffect } from "react";
-import {
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet,
-  View,
-  Platform,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { KeyboardAvoidingView, ScrollView, StyleSheet, View, Platform } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
+import { CountableButton } from "./components/CountableButton";
 import { loadCountables, saveCountables } from "./storage/CountableStorage";
 
 export default function App() {
@@ -30,7 +24,7 @@ export default function App() {
     }
   }, [countables, isLoaded]);
 
-  const changeCount = (amount, index) => {
+  const changeCount = (index, amount) => {
     const newState = [...countables];
     newState[index].count += amount;
     setCountables(newState);
@@ -41,7 +35,11 @@ export default function App() {
     setCountables(newState);
   };
 
-  // https://medium.com/@nickyang0501/keyboardavoidingview-not-working-properly-c413c0a200d4
+  const removeRow = (index) => {
+    const newState = [...countables];
+    newState.splice(index, 1);
+    setCountables(newState);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -54,15 +52,14 @@ export default function App() {
             {countables.map((countable, index) => (
               <CountableRow
                 countable={countable}
-                key={countable.name}
-                changeCount={changeCount}
-                index={index}
+                key={index}
+                changeCount={(amount) => changeCount(index, amount)}
+                removeRow={() => removeRow(index)} // Pass the removeRow function
               />
             ))}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
-          <StatusBar style="auto" />
+          <AddRow addNewCountable={addNewCountable} existingNames={countables.map(countable => countable.name)} />
         </SafeAreaView>
       </SafeAreaProvider>
     </KeyboardAvoidingView>
