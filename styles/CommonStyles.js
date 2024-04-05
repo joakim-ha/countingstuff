@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export const CommonStyles = StyleSheet.create({
   textItem: {
     fontSize: 40,
+    color: "black",
   },
   row: {
     flexDirection: "row",

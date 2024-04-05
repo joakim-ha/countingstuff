@@ -6,8 +6,10 @@ import {
   StyleSheet,
   View,
   Platform,
+  Text,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 import { AddRow } from "./components/AddRow";
 import { CountableRow } from "./components/CountableRow";
@@ -36,6 +38,12 @@ export default function App() {
     setCountables(newState);
   };
 
+  const removeCountable = (index) => {
+    const newState = [...countables];
+    newState.splice(index, 1);
+    setCountables(newState);
+  };
+
   const addNewCountable = (name) => {
     const newState = [...countables, { name, count: 0 }];
     setCountables(newState);
@@ -51,17 +59,25 @@ export default function App() {
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <ScrollView>
-            {countables.map((countable, index) => (
-              <CountableRow
-                countable={countable}
-                key={countable.name}
-                changeCount={changeCount}
-                index={index}
-              />
-            ))}
+            {countables.length === 0 ? (
+              <View style={styles.alternativeScreen}>
+                <Text style={styles.bigText}>No items in the list</Text>
+                <Icon name="meh-o" size={100} color="gray" />
+              </View>
+            ) : (
+              countables.map((countable, index) => (
+                <CountableRow
+                  countable={countable}
+                  key={countable.name}
+                  changeCount={changeCount}
+                  index={index}
+                  removeCountable={() => removeCountable(index)}
+                />
+              ))
+            )}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
+          <AddRow addNewCountable={addNewCountable} countables={countables} />
           <StatusBar style="auto" />
         </SafeAreaView>
       </SafeAreaProvider>
@@ -74,5 +90,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     justifyContent: "flex-end",
+  },
+  alternativeScreen: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bigText: {
+    fontSize: 60,
+    textAlign: "center",
+    color: "gray",
   },
 });
