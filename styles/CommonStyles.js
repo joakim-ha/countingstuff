@@ -7,6 +7,7 @@ export const CommonStyles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     borderColor: "lightblue",
     borderWidth: 3,
     borderRadius: 5,

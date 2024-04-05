@@ -61,7 +61,7 @@ export default function App() {
             ))}
             <View style={{ flex: 1 }} />
           </ScrollView>
-          <AddRow addNewCountable={addNewCountable} />
+          <AddRow addNewCountable={addNewCountable} countables={countables} />
           <StatusBar style="auto" />
         </SafeAreaView>
       </SafeAreaProvider>
